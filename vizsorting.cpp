@@ -19,7 +19,7 @@ App::App(int mw, int mh) {
 
 void App::start() {
     sf::Event event;
-    window = new sf::RenderWindow(sf::VideoMode(maxw, maxh), "The Game of Life");
+    window = new sf::RenderWindow(sf::VideoMode(maxw, maxh), "VizSort - Sorting Algorithms, Visualized.");
     texture = new sf::RenderTexture();
     texture->create(maxw, maxh);
     window->setFramerateLimit(60);
