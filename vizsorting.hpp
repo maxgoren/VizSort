@@ -38,6 +38,8 @@ class App {
         int medOf3(int a[], int l, int r);
         void bumsort(int a[], int n);
         void tiledbumsort(int a[], int n);
+        void bubblesort(int a[], int n);
+        void selectionsort(int a[], int n);
     public:
         App(int mw = 850, int mh = 500);
         void start();

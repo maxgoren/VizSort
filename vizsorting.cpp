@@ -95,6 +95,14 @@ void App::handleEvent(sf::Event& event) {
                 insertionsort(a, 0, n-1);
                 sorted = true;
                 break;
+            case sf::Keyboard::L:
+                currentAlgorithm = "Selection sort";
+                selectionsort(a, n);
+                break;
+            case sf::Keyboard::K:
+                currentAlgorithm = "Bubble sort";
+                bubblesort(a, n);
+                break;
             case sf::Keyboard::Escape:
                 window->close();
                 break;
