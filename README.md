@@ -12,6 +12,8 @@ Popular sorting algorithms brought to life through data movement visualization
      'I'  - Introspective Sort
      'S'  - Shellsort with Sedgewicks 3h+1 sequence
      'N'  - Insertion sort
-     'R'  - Shuffle Array using Knuth Shuffle
+     'K'  - Bubble sort
+     'L'  - Selection sort
+     'R'  - re-shuffle array using Knuth shuffle
 
 *This project depends on SFML for graphics
