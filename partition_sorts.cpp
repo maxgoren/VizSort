@@ -21,6 +21,7 @@ int App::partition(int a[], int l, int r) {
         render();
     }
     exch(a, i, r);
+    mcv = i;
     render();
     return i;
 }
@@ -47,22 +48,48 @@ void App::quicksort(int a[], int l, int r) {
             }
         }
     }
+    lcv = rcv = 1337;
+    mcv = 1337;
+}
+
+
+int App::_medOf3(int a[], int l, int r) {
+    if (r - l < 9) {
+        cout<<"Median of three"<<endl;
+        int m = (l+r)/2;
+        if (a[l] > a[m])
+            exch(a, l, m);
+        if (a[l] > a[r])
+            exch(a, l, r);
+        if (a[m] > a[r])
+            exch(a, m, r);
+        render();
+        return m;
+    }
+    cout<<"Median of Nine"<<endl;
+    int t = (r-l)/3;
+    int end = _medOf3(a, r-t, r);
+    int lo = _medOf3(a, l, l+t-1);
+    int mid = _medOf3(a, l+t, r-t-1);
+    if (a[lo] > a[mid])
+        exch(a, lo, mid);
+    if (a[lo] > a[end])
+        exch(a, lo, end);
+    if (a[mid] > a[end])
+        exch(a, mid, end);
+    render();
+    return mid;
 }
 
 int App::medOf3(int a[], int l, int r) {
-    int m = (l+r)/2;
-    if (a[l] > a[m])
-        exch(a, l, m);
-    if (a[l] > a[r])
-        exch(a, l, r);
-    if (a[m] < a[r])
-        exch(a, m, r);
-    render();
+    int pivot = _medOf3(a, l, r);
+    exch(a, r, pivot);
     return partition(a, l, r);
 }
 
 void App::quicksort(int a[], int l, int r, int d) {
     if (d == 0) {
+        cout<<endl<<"[heapsort]"<<endl;
         heapsort(a, l, r);
     } else if (r - l < 13) {
         insertionsort(a, l, r);
@@ -76,5 +103,14 @@ void App::quicksort(int a[], int l, int r, int d) {
 void App::introsort(int a[], int l, int r) {
     int d = 2*log(r-l);
     quicksort(a, l, r, d);
-    lcv = rcv = n+1;
+    lcv = rcv = 1337;
+    mcv = 1337;
+}
+
+void App::quicksortR(int a[], int l, int r) {
+    if (r - l > 10) {
+        int i = partition(a, l, r);
+        quicksortR(a, l, i-1);
+        quicksortR(a, i+1, r);
+    }
 }

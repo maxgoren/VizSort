@@ -15,6 +15,7 @@ App::App(int mw, int mh) {
     text.setFont(font);
     currentAlgorithm = " N = " + to_string(n);
     sorted = false;
+    ssnum = 0;
 }
 
 void App::start() {
@@ -54,54 +55,92 @@ void App::handleEvent(sf::Event& event) {
                 currentAlgorithm = "Mergesort (Topdown), w/ Insertion Sort Cutoff";
                 mergesort(a, n);
                 sorted = true;
+                ssnum = 0;
                 break;
             case sf::Keyboard::B:
                 currentAlgorithm = "Mergesort (Bottom up)";
                 bumsort(a, n);
                 sorted = true;
+                ssnum = 0;
                 break;
             case sf::Keyboard::T:
                 currentAlgorithm = "Mergesort (Tiled Bottom Up)";
                 tiledbumsort(a, n);
                 sorted = true;
+                ssnum = 0;
                 break;
             case sf::Keyboard::F:
                 currentAlgorithm = "Heapsort (Floyd's)";
                 floydheapsort(a, 0, n-1);
                 sorted = true;
+                ssnum = 0;
                 break;
             case sf::Keyboard::H:
                 currentAlgorithm = "Heapsort";
                 heapsort(a, 0, n-1);
                 sorted = true;
+                ssnum = 0;
                 break;
             case sf::Keyboard::Q:
                 currentAlgorithm = "Iterative Quicksort, w/ Insertion Sort Cutoff";
                 quicksort(a, 0, n-1);
                 sorted = true;
+                ssnum = 0;
+                break;
+            case sf::Keyboard::A:
+                currentAlgorithm = "Recursive Quicksort, Hoare's partition";
+                quicksortR(a, 0, n-1);
+                insertionsort(a, 0, n-1);
+                sorted = true;
+                ssnum = 0;
                 break;
             case sf::Keyboard::I:
                 currentAlgorithm = "Intro sort";
                 introsort(a, 0, n-1);
                 sorted = true;
+                ssnum = 0;
                 break;
             case sf::Keyboard::S:
                 currentAlgorithm = "Shellsort";
                 shellsort(a, 0, n-1);
                 sorted = true;
+                ssnum = 0;
                 break;
             case sf::Keyboard::N:
                 currentAlgorithm = "Insertion sort.";
                 insertionsort(a, 0, n-1);
                 sorted = true;
+                ssnum = 0;
                 break;
             case sf::Keyboard::L:
                 currentAlgorithm = "Selection sort";
                 selectionsort(a, n);
+                sorted = true;
+                ssnum = 0;
                 break;
             case sf::Keyboard::K:
                 currentAlgorithm = "Bubble sort";
                 bubblesort(a, n);
+                sorted = true;
+                ssnum = 0;
+                break;
+            case sf::Keyboard::E:
+                currentAlgorithm = "Exchange sort";
+                exchangesort(a, n);
+                sorted = true;
+                ssnum = 0;
+                break;
+            case sf::Keyboard::W:
+                currentAlgorithm = "Insertion sort - non adaptive";
+                inssort2(a, n);
+                sorted = true;
+                ssnum = 0;
+                break;
+            case sf::Keyboard::C:
+                currentAlgorithm = "Cocktail shaker sort";
+                cocktail(a, n);
+                sorted = true;
+                ssnum = 0;
                 break;
             case sf::Keyboard::Escape:
                 window->close();
@@ -124,6 +163,8 @@ void App::renderSortArray() {
             rect.setFillColor(sf::Color::Red);
         else if (i == rcv)
             rect.setFillColor(sf::Color::Red);
+        else if (i == mcv)
+            rect.setFillColor(sf::Color::Blue);
         else
             rect.setFillColor(sf::Color::Green);
         texture->draw(rect);

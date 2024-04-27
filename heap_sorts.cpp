@@ -12,7 +12,7 @@ void App::downheap(int a[], int n, int k) {
 }
 
 void App::upheap(int a[], int k) {
-    while (k > 0 && a[k/2] < a[k]) {
+    while (k >= 0 && a[k/2] < a[k]) {
         exch(a, k, k/2);
         k = k/2;
     }
@@ -33,7 +33,7 @@ void App::floydheapsort(int a[], int l, int r) {
 void App::heapsort(int a[], int l, int r) {
     int n = r-l;
     int *pq = a+l;
-    for (int i = 0; i < n; i++) 
+    for (int i = 0; i < n+1; i++) 
         upheap(pq, i);
     while (n > 0) {
         exch(pq, 0, n--);

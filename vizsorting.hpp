@@ -17,6 +17,8 @@ class App {
         int n;
         int lcv;
         int rcv;
+        int mcv;
+        int ssnum;
         sf::Font font;
         sf::Text text;
         bool sorted;
@@ -30,6 +32,7 @@ class App {
         void mergesort(int a[], int aux[], int l, int r);
         void merge(int a[], int aux[], int l, int m, int r);
         void quicksort(int a[], int l, int r);
+        void quicksortR(int a[], int l, int r);
         int partition(int a[], int l, int r);
         void insertionsort(int a[], int l, int r);
         void shellsort(int a[], int l, int r);
@@ -39,7 +42,11 @@ class App {
         void bumsort(int a[], int n);
         void tiledbumsort(int a[], int n);
         void bubblesort(int a[], int n);
+        void exchangesort(int a[], int n);
         void selectionsort(int a[], int n);
+        void inssort2(int a[], int n);
+        int _medOf3(int a[], int l, int r);
+        void cocktail(int a[], int n);
     public:
         App(int mw = 850, int mh = 500);
         void start();
