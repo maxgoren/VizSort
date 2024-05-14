@@ -12,17 +12,17 @@ void App::exch(int a[], int l, int r) {
 int App::partition(int a[], int l, int r) {
     int i = l - 1, j = r, v = a[r];
     for (;;) {
-        lcv = l;
-        rcv = r;
+        lcv = i;
+        rcv = j;
         while (a[++i] < v);
         while (a[--j] > v);
         if (i >= j) break;
+        lcv = i;
+        rcv = j;
         exch(a, i, j);
-        render();
     }
-    exch(a, i, r);
     mcv = i;
-    render();
+    exch(a, i, r);
     return i;
 }
 
@@ -37,7 +37,7 @@ void App::quicksort(int a[], int l, int r) {
         if (r - l < 9) {
             insertionsort(a, l, r);
         } else {
-            int i = medOf3(a, l, r);
+            int i = findPivot(a, l, r);
             if (i-1 > l) {
                 st[t++] = i-1;
                 st[t++] = l;
@@ -53,9 +53,10 @@ void App::quicksort(int a[], int l, int r) {
 }
 
 
-int App::_medOf3(int a[], int l, int r) {
+int App::_medianOfMedians(int a[], int l, int r) {
     if (r - l < 9) {
-        cout<<"Median of three"<<endl;
+        //Base case is plain median of 3 between
+        // a[l], a[m], a[r].
         int m = (l+r)/2;
         if (a[l] > a[m])
             exch(a, l, m);
@@ -66,11 +67,13 @@ int App::_medOf3(int a[], int l, int r) {
         render();
         return m;
     }
-    cout<<"Median of Nine"<<endl;
+    //recursively subdivide array into three slices
+    //obtain median for each slice
+    //return the median of the three obtained medians.
     int t = (r-l)/3;
-    int end = _medOf3(a, r-t, r);
-    int lo = _medOf3(a, l, l+t-1);
-    int mid = _medOf3(a, l+t, r-t-1);
+    int lo = _medianOfMedians(a, l, l+t-1);
+    int mid = _medianOfMedians(a, l+t, r-t-1);
+    int end = _medianOfMedians(a, r-t, r);
     if (a[lo] > a[mid])
         exch(a, lo, mid);
     if (a[lo] > a[end])
@@ -81,28 +84,28 @@ int App::_medOf3(int a[], int l, int r) {
     return mid;
 }
 
-int App::medOf3(int a[], int l, int r) {
-    int pivot = _medOf3(a, l, r);
+int App::findPivot(int a[], int l, int r) {
+    int pivot = _medianOfMedians(a, l, r);
     exch(a, r, pivot);
     return partition(a, l, r);
 }
 
-void App::quicksort(int a[], int l, int r, int d) {
+void App::introsortR(int a[], int l, int r, int d) {
     if (d == 0) {
         cout<<endl<<"[heapsort]"<<endl;
         heapsort(a, l, r);
     } else if (r - l < 13) {
         insertionsort(a, l, r);
     } else {
-        int i = medOf3(a, l, r);
-        quicksort(a, l, i-1,d-1);
-        quicksort(a, i+1, r,d-1);
+        int i = findPivot(a, l, r);
+        introsortR(a, l, i-1,d-1);
+        introsortR(a, i+1, r,d-1);
     }
 }
 
 void App::introsort(int a[], int l, int r) {
     int d = 2*log(r-l);
-    quicksort(a, l, r, d);
+    introsortR(a, l, r, d);
     lcv = rcv = 1337;
     mcv = 1337;
 }

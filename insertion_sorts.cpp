@@ -1,6 +1,6 @@
 #include "vizsorting.hpp"
 
-void App::inssort2(int a[], int n) {
+void App::insertionsortNA(int a[], int n) {
     for (int i = 0; i < n; i++)
         for (int j = i; j > 0 && a[j-1] > a[j]; j--)
             exch(a, j, j-1);

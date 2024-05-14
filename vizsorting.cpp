@@ -132,7 +132,7 @@ void App::handleEvent(sf::Event& event) {
                 break;
             case sf::Keyboard::W:
                 currentAlgorithm = "Insertion sort - non adaptive";
-                inssort2(a, n);
+                insertionsortNA(a, n);
                 sorted = true;
                 ssnum = 0;
                 break;
@@ -144,6 +144,9 @@ void App::handleEvent(sf::Event& event) {
                 break;
             case sf::Keyboard::Escape:
                 window->close();
+                break;
+            case sf::Keyboard::Tab:
+                showHelp();
                 break;
             default:
                 break;
@@ -166,7 +169,7 @@ void App::renderSortArray() {
         else if (i == mcv)
             rect.setFillColor(sf::Color::Blue);
         else
-            rect.setFillColor(sf::Color::Green);
+            rect.setFillColor(sf::Color(255-a[j], a[j], (255+a[j])%255));
         texture->draw(rect);
         x += 6;
         j++;
@@ -190,4 +193,8 @@ void App::render() {
 
 void App::sleep() {
     std::this_thread::sleep_for(150ms);
+}
+
+void App::showHelp() {
+    
 }
